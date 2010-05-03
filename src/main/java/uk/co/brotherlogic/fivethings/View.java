@@ -112,6 +112,9 @@ public class View extends JFrame
 		panel.add(textField);
 		panel.add(setButton);
 		panel.validate();
+		
+		//Cannot edit a decided task
+		textField.setEditable(false);
 
 		setButton.addActionListener(new ActionListener()
 		{
