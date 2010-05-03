@@ -1,0 +1,21 @@
+body
+{
+	background-color:#eeeeee;
+	font-family:palatino;
+	margin-left:20%;
+	margin-right:20%;
+	text-align:justify;
+}
+
+a
+{
+	text-decoration:none;
+}
+
+div.header
+{
+	margin-top:50px;
+	margin-bottom:20px;
+	border-style:solid;
+	border-width: 0 0 2 0;
+}
