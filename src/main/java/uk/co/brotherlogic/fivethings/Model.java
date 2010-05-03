@@ -68,6 +68,7 @@ public class Model
 	public final void setDone(final int index)
 	{
 		todos[index].completeTask();
+		backend.updateToDo(todos[index]);
 	}
 
 	/**

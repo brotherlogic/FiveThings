@@ -134,7 +134,7 @@ public class LocalStorage implements IBackendStorage
 				catch (IOException e)
 				{
 					// Ignore any io exception
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 				ois.close();
 			}
@@ -145,6 +145,58 @@ public class LocalStorage implements IBackendStorage
 				oos.writeObject(todoP);
 			System.err.println("STORING: " + toStore);
 			oos.writeObject(toStore);
+			oos.close();
+			return true;
+		}
+		catch (IOException e)
+		{
+			JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
+		}
+		catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+	
+	@Override
+	public final boolean updateToDo(final ToDo toUpdate)
+	{
+		try
+		{
+			// Read all the previous todos
+			Collection<ToDo> previous = new LinkedList<ToDo>();
+
+			// Only read if there's something to actually read
+			if (storageFile.length() > 0)
+			{
+				ObjectInputStream ois = new ObjectInputStream(
+						new GZIPInputStream(new FileInputStream(storageFile)));
+				try
+				{
+					ToDo todo = (ToDo) ois.readObject();
+					while (todo != null)
+					{
+						if (todo.equals(toUpdate))
+							previous.add(toUpdate);
+						else
+							previous.add(todo);
+						todo = (ToDo) ois.readObject();
+					}
+				}
+				catch (IOException e)
+				{
+					// Ignore any io exception
+					//e.printStackTrace();
+				}
+				ois.close();
+			}
+
+			ObjectOutputStream oos = new ObjectOutputStream(
+					new GZIPOutputStream((new FileOutputStream(storageFile))));
+			for (ToDo todoP : previous)
+				oos.writeObject(todoP);
 			oos.close();
 			return true;
 		}

@@ -27,4 +27,11 @@ public interface IBackendStorage
 	 * @return whether the todo was added
 	 */
 	boolean storeToDo(ToDo toStore);
+	
+	/**
+	 * Updates the todo
+	 * @param toUpdate The todo to update
+	 * @return whether the update was successful
+	 */
+	boolean updateToDo(ToDo toUpdate);
 }

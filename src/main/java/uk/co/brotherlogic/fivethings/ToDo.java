@@ -30,6 +30,15 @@ public class ToDo implements Serializable
 	private static int[] comps = new int[]
 	{ Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH };
 
+	@Override
+	public boolean equals(Object toComp)
+	{
+		if (toComp instanceof ToDo)
+			return date.equals(((ToDo)toComp).date) && todo.equals(((ToDo)toComp).todo);
+		else
+			return false;
+	}
+	
 	/**
 	 * Constructor
 	 */
