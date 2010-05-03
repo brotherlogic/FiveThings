@@ -1,5 +1,6 @@
 package uk.co.brotherlogic.fivethings;
 
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -27,7 +28,10 @@ public class View extends JFrame
 
 	/** The minimum width of the window */
 	private static final int MINIMUM_WIDTH = 300;
-
+	
+	/** The font to use for the interface */
+	private static final Font displayFont = new Font("Helvetica",Font.PLAIN,26);
+	
 	/**
 	 * Constructor
 	 * 
@@ -60,6 +64,10 @@ public class View extends JFrame
 		for (int i = 0; i < Model.NUMBER_TODOS; i++)
 		{
 			JTextField textField = new JTextField();
+			
+			//Set up a large font for the text field
+			textField.setFont(displayFont);
+			
 			model.processForDisplay(i, textField);
 
 			JPanel mainPanel = new JPanel();
@@ -111,6 +119,7 @@ public class View extends JFrame
 			{
 				panel.removeAll();
 				model.setDone(num);
+				model.processForDisplay(num, textField);
 				setForDone(panel, textField);
 			}
 		});
@@ -129,10 +138,14 @@ public class View extends JFrame
 		GridBagLayout gbl = new GridBagLayout();
 		panel.setLayout(gbl);
 
-		gbl.setConstraints(panel, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0,
+		gbl.setConstraints(textField, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(
 						0, 0, 0, 0), 0, 0));
 		panel.add(textField);
+		panel.validate();
+		
+		//Cannot edit completed fields
+		textField.setEnabled(false);
 	}
 
 	/**
