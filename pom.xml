@@ -17,10 +17,16 @@
   </dependencies>
   
   <build>
-  <pluginManagement>
     <plugins>
-    
-    <plugin>
+      <plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>webstart-maven-plugin</artifactId>
+	<version>1.0-alpha-1</version>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
 	  <groupId>org.apache.maven.plugins</groupId>
 	  <artifactId>maven-compiler-plugin</artifactId>
 	  <version>2.0.2</version>
@@ -29,8 +35,8 @@
             <target>1.6</target>
 	  </configuration>
 	</plugin>
-    
-     <plugin>
+	
+	<plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
           <version>1.1</version>
@@ -45,8 +51,26 @@
             <mainClass>uk.co.brotherlogic.fivethings.Controller</mainClass>
           </configuration>
 	</plugin>
-    </plugins>
+	
+	<plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>webstart-maven-plugin</artifactId>
+          <configuration>
+            <jnlp>
+              <mainClass>uk.co.brotherlogic.fivethings.Controller</mainClass>
+            </jnlp>
+            <sign>
+              <keystore>../../src/jnlp/fivethings.jks</keystore>
+              <keypass>fivethingspass</keypass>
+              <storepass>fivethingspass</storepass>
+              <storetype>jks</storetype>
+              <alias>fivethings</alias>
+              <verify>true</verify>
+            </sign>
+            <verbose>true</verbose>
+          </configuration>
+        </plugin>
+      </plugins>
     </pluginManagement>
   </build>
-  
 </project>
